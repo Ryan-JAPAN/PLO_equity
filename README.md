@@ -100,3 +100,4 @@ UI/描画（ui/chart）はDOMに依存します。
   精度セレクタ（高速/標準/高精度）で試行回数を調整できます。
 - 書籍掲載の代表的な局面では、ProPokerToolsの値を ±0.3% 程度で再現します
   （`test/golden.test.mjs` 参照）。
+  Pages deploy retry.
