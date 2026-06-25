@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="felt" cx="50%" cy="32%" r="80%">
+      <stop offset="0%" stop-color="#0f5440"/>
+      <stop offset="60%" stop-color="#0b3d2e"/>
+      <stop offset="100%" stop-color="#07251b"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#felt)"/>
+  <!-- 下降するエクイティ分布曲線 -->
+  <path d="M88 132 C 150 150, 168 232, 210 300 S 320 404, 424 392"
+        fill="none" stroke="#ef6f6f" stroke-width="18" stroke-linecap="round"/>
+  <path d="M88 132 C 150 150, 168 232, 210 300 S 320 404, 424 392 L 424 424 L 88 424 Z"
+        fill="#ef6f6f" opacity="0.18"/>
+  <!-- スペードの装飾 -->
+  <path d="M360 96 c -28 28 -58 44 -58 76 a 30 30 0 0 0 56 14 a 30 30 0 0 0 56 -14 c 0 -32 -30 -48 -54 -76 z"
+        fill="#e6b450"/>
+  <path d="M360 178 l -12 40 l 24 0 z" fill="#e6b450"/>
+</svg>

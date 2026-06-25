@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
+  <meta name="theme-color" content="#0b3d2e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PLO Equity" />
+  <title>PLO ポストフロップ Equity</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>PLO ポストフロップ <span class="accent">Equity</span></h1>
+    <p class="subtitle">エクイティ計算 ＆ ランナウト分布グラフ</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="モード切替">
+    <button class="tab is-active" data-tab="calc" id="tab-calc" role="tab"
+            aria-selected="true" aria-controls="calcResult" tabindex="0">エクイティ計算</button>
+    <button class="tab" data-tab="dist" id="tab-dist" role="tab"
+            aria-selected="false" aria-controls="distResult" tabindex="-1">分布グラフ</button>
+  </nav>
+
+  <main>
+    <section class="panel inputs">
+      <div class="field">
+        <label class="field-label">自分のハンド <span class="req">4枚</span></label>
+        <div class="slots" id="heroSlots"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">フロップ <span class="req">3枚</span> <span class="opt">＋ターン任意</span></label>
+        <div class="slots" id="boardSlots"></div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">相手レンジ</label>
+        <div class="presets" id="rangePresets"></div>
+        <input id="rangeInput" class="range-input" type="text" inputmode="text"
+               autocapitalize="characters" autocomplete="off" spellcheck="false"
+               placeholder="例: AA** , KK** , AsKsQhJh" aria-label="相手レンジ" />
+        <div class="range-meta" id="rangeMeta"></div>
+      </div>
+
+      <div class="field row">
+        <label class="field-label">精度</label>
+        <div class="segmented" id="accuracy" role="group" aria-label="計算精度"></div>
+      </div>
+
+      <p class="input-error" id="inputError" aria-live="polite"></p>
+      <button class="run-btn" id="runBtn" type="button">エクイティを計算</button>
+
+      <div class="progress" id="progress" hidden>
+        <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+        <span class="progress-text">計算中…</span>
+      </div>
+    </section>
+
+    <p class="dist-hint" id="distHint" hidden>
+      残りのランナウト（ターン・リバー）でのエクイティを高い順に並べた曲線です。
+      曲線をなぞると「上位◯%のランナウトで最低◯%のエクイティ」を読み取れます。
+      面積（平均線）がその盤面での総合エクイティに対応します。
+    </p>
+
+    <section class="panel result" id="calcResult" role="tabpanel" aria-labelledby="tab-calc" tabindex="0"></section>
+    <section class="panel result" id="distResult" role="tabpanel" aria-labelledby="tab-dist" tabindex="0" hidden></section>
+
+    <footer class="app-footer">
+      <details>
+        <summary>レンジ記法のヘルプ</summary>
+        <ul>
+          <li><code>AA**</code> … エースちょうど2枚＋任意2枚</li>
+          <li><code>BBBB</code> … ブロードウェイ(T〜A)4枚 / <code>BBB9</code> … 3枚＋9</li>
+          <li><code>AKQJ</code> … 各ランク1枚（スート任意）</li>
+          <li><code>AsKsQhJh</code> … 具体的な4枚</li>
+          <li>カンマ <code>,</code> で複数レンジの和（例: <code>AA**,KK**</code>）</li>
+          <li>4枚未満は残りを任意の札で補完（<code>AA</code> → <code>AA**</code>、<code>As</code> は As を含む全ハンド）</li>
+        </ul>
+      </details>
+      <p class="credit">PLO From Scratch の解説に基づく学習用ツール</p>
+    </footer>
+  </main>
+
+  <div class="sheet-backdrop" id="pickerBackdrop" hidden></div>
+  <div class="picker-sheet" id="pickerSheet" role="dialog" aria-modal="true" aria-label="カード選択" hidden>
+    <div class="picker-head">
+      <span class="picker-target" id="pickerTarget">カード選択</span>
+      <div class="picker-actions">
+        <button class="picker-clear" id="pickerClearSlot" type="button">この枠を空に</button>
+        <button class="picker-close" id="pickerClose" type="button" aria-label="閉じる">完了</button>
+      </div>
+    </div>
+    <div class="picker-grid" id="pickerGrid"></div>
+  </div>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
